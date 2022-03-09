@@ -5,19 +5,46 @@ class Game
     @hum = "O" # the user's marker
   end
 
+  def sleep_mode(_sec)
+    sleep(0.5)
+    puts "\n\n"
+    puts "\n\n"
+  end
+  
+
+  def print_board(board)
+      puts '      *       *      '
+      puts "   #{board[0]}  *   #{board[1]}   *   #{board[2]}  "
+      puts '      *       *       '
+      puts '* * * * * * * * * * * '
+      puts '      *       *       '
+      puts "   #{board[3]}  *   #{board[4]}   *   #{board[5]}   "
+      puts '      *       *       '
+      puts '* * * * * * * * * * * '
+      puts '      *       *       '
+      puts "   #{board[6]}  *    #{board[7]}  *   #{board[8]}   "
+      puts '      *       *       '
+  end
+
   def start_game
-    # start by printing the board
-    puts " #{@board[0]} | #{@board[1]} | #{@board[2]} \n===+===+===\n #{@board[3]} | #{@board[4]} | #{@board[5]} \n===+===+===\n #{@board[6]} | #{@board[7]} | #{@board[8]} \n"
-    puts "Enter [0-8]:"
+    print_board(@board)
+    puts "Enter [0-8]:"   
+    puts "\n\n"
+    
     # loop through until the game was won or tied
     until game_is_over(@board) || tie(@board)
       get_human_spot
       if !game_is_over(@board) && !tie(@board)
         eval_board
       end
-      puts " #{@board[0]} | #{@board[1]} | #{@board[2]} \n===+===+===\n #{@board[3]} | #{@board[4]} | #{@board[5]} \n===+===+===\n #{@board[6]} | #{@board[7]} | #{@board[8]} \n"
+      print_board(@board)
+      sleep_mode(1)
     end
-    puts "Game over"
+    if game_is_over(@board)
+      puts "Game is over"
+    else
+      puts "it's a Tie"
+    end
   end
 
   def get_human_spot
