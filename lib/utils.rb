@@ -19,8 +19,8 @@ module Utilities
     case user
     when 'COMPUTER'
       puts "\n               I AM SORRY THE #{user} WON! TRY AGAIN!!! \n\n".red
-    when 2
-      puts "\n               COMPUTER NUMBER #{user} WON!!! \n\n".red
+    when 'Max-Bot-2'
+      puts "\n               #{user} WON!!! \n\n".red
     else
       puts "\n               CONGRATULATIONS #{user} YOU WON THE GAME!!! \n\n".light_green
     end

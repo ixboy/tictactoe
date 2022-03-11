@@ -29,9 +29,11 @@ class Game < Players
         difficulty = Utilities.difficulty_level?
         automatic = true
         auto_mode = false
+        dual = false
       when '2'
         automatic = true
         difficulty = true
+        dual = false
       else
         (1..2).each do |i|
           @player_names << Utilities.ask_the_name("Player number #{i}")
@@ -48,7 +50,7 @@ class Game < Players
       until game_is_over(@board) || tie(@board)
         flag = false
         if auto_mode
-          computer_default
+          computer_default('O')
           print_board(@board)
           sleep(5)
         else
@@ -70,7 +72,7 @@ class Game < Players
           computer_hard if difficulty
           flag = true
           computer_n = 'COMPUTER'
-          computer_n = 2 if difficulty
+          computer_n = 'Max-Bot-2' if difficulty && auto_mode
         else
           Utilities.players_msg(@player_names[1], 'X')
           hum_move = false

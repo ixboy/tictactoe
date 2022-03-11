@@ -49,7 +49,7 @@ class Players < Logic
           spot = nil
         end
       end
-      Utilities.user_moves('Computer', spot) if spot
+      Utilities.user_moves('Max-Bot-2', spot) if spot
     end
   end
 
@@ -85,11 +85,11 @@ class Players < Logic
   end
 
   # computer player easy moves...
-  def computer_default
+  def computer_default(symbol = 'X')
     spot = 4
     spot = rand(0..8) until @board[spot] != 'X' && @board[spot] != 'O'
-    @board[spot] = @com
-    Utilities.user_moves('Computer', spot)
+    @board[spot] = symbol
+    Utilities.user_moves('Alex-Bot-1', spot)
     @available[spot] = ' '
   end
 
