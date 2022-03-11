@@ -15,14 +15,17 @@ module Utilities
 
   def self.winning_msg(user)
     5.times { puts "\n" }
-    if user == 'COMPUTER'
+    case user
+    when 'COMPUTER'
       puts "\n               I AM SORRY THE #{user} WON! TRY AGAIN!!! \n\n".red
+    when 2
+      puts "\n               COMPUTER NUMBER #{user} WON!!! \n\n".red
     else
       puts "\n               CONGRATULATIONS #{user} YOU WON THE GAME!!! \n\n".light_green
     end
   end
 
-  def self.difficulty_level
+  def self.difficulty_level?
     puts "\n\n             Enter 1 for the Computer to play a bit hard against you\n\n             Enter any key for Computer to play easy against you".light_yellow
     level = gets.chomp
     if level == '1'
@@ -84,14 +87,22 @@ module Utilities
     num.negative? || num > 8 ? nil : num
   end
 
-  def self.single_mode?
-    puts "\n\n             ENTER 1 TO PLAY AGAINST THE COMPUTER\n\n             ENTER ANY KEY TO PLAY AGAINST ANOTHER PLAYER ".light_yellow
+  def self.single_mode
+    puts "\n\n             ENTER 1 TO PLAY AGAINST THE COMPUTER\n".light_yellow
+    puts "\n\n             ENTER 2 TO WATCH COMPUTERS PLAY AGAINST EACH OTHER\n".light_yellow
+    puts "\n\n             ENTER ANY KEY TO PLAY AGAINST ANOTHER PLAYER ".light_yellow
     level = gets.chomp
-    if level == '1'
-      puts "\n\n             SINGLE PLAYER ACTIVATED!... YOU WILL BE PLAYING AGAINST THE COMPUTER".light_red
+
+    case level
+    when '1'
+      puts "\n\n             SINGLE PLAYER ACTIVATED!... YOU WILL BE PLAYING AGAINST THE COMPUTER".light_yellow
+      '1'
+    when '2'
+      puts "\n\n             COMPUTER VS COMPUTER ACTIVATED!... YOU WILL BE WATCHING COMPUTERS PLAY AGAINST EACH OTHER".light_green
+      '2'
     else
-      puts "\n\n             DUAL PLAYER ACTIVATED!... YOU WILL BE PLAYING AGAINST YOUR FRIEND".green
+      puts "\n\n             DUAL PLAYER ACTIVATED!... YOU WILL BE PLAYING AGAINST YOUR FRIEND".light_blue
+      '3'
     end
-    level == '1'
   end
 end

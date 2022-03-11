@@ -99,7 +99,6 @@ class Players < Logic
     @player_names = []
   end
 end
-
 # rubocop:enable Metrics/CyclomaticComplexity
 # rubocop:enable Metrics/PerceivedComplexity
 # rubocop:enable Metrics/MethodLength
