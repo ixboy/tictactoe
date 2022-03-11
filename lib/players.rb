@@ -76,4 +76,20 @@ class Players < Logic
           return available_spaces[n].to_i
         end
     end
+
+    # computer player easy moves...
+    def get_computer_default
+      spot = 4
+      until @board[spot] != "X" && @board[spot] != "O"
+        spot = rand(0..8)
+      end
+      @board[spot] = @com
+      Utilities.user_moves("Computer", spot)
+      @available[spot] = " "
+    end
+  
+    def reset
+        @board = ["0", "1", "2", "3", "4", "5", "6", "7", "8"]
+        @available = ["0", "1", "2", "3", "4", "5", "6", "7", "8"]
+    end
 end
