@@ -10,19 +10,23 @@ class Players < Logic
 
     private
     
-    def get_human_spot
-        spot = nil
-        until spot
-          spot = gets.chomp.to_i
-          if @board[spot] != "X" && @board[spot] != "O"
-            @board[spot] = @hum
-            @available[spot] = " "
-          else
-            spot = nil
-          end
+    def get_human_spot(player_name)
+      spot = nil
+      until spot
+        Utilities.choice_msg(player_name)
+        choice = gets.chomp
+        player_choice = Utilities.validate_number(choice)
+        spot = player_choice
+        if spot && @board[spot] != "X" && @board[spot] != "O"
+          @board[spot] = @hum
+          @available[spot] = " "
+        else
+          spot = nil
         end
-        spot
-    end 
+      end
+      spot
+    end
+
     # computer player hard moves...
     def get_computer_hard
         spot = nil

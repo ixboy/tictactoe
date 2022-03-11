@@ -1,3 +1,4 @@
+#!/usr/bin/env ruby
 require_relative '../lib/players.rb'
 
 class Game < Players
@@ -25,7 +26,10 @@ class Game < Players
       until game_is_over(@board) || tie(@board)
         flag = false
         Utilities.players_msg(player_name)
-        hum_move = get_human_spot
+        hum_move = false
+        until hum_move
+          hum_move = get_human_spot(player_name)
+        end
         sleep(1)
         Utilities.clear_terminal
         Utilities.user_moves(player_name, hum_move)
