@@ -1,4 +1,5 @@
 require 'colorize'
+# rubocop:disable Layout/LineLength
 
 module Utilities
   def self.clear_terminal
@@ -106,3 +107,4 @@ module Utilities
     end
   end
 end
+# rubocop:enable Layout/LineLength
