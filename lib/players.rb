@@ -8,13 +8,14 @@ class Players < Logic
   def initialize
     @board = %w[0 1 2 3 4 5 6 7 8]
     @available = %w[0 1 2 3 4 5 6 7 8]
+    @player_names = []
     @com = 'X' # the computer's symbol
     @hum = 'O' # the user's symbol
   end
 
   private
 
-  def human_spot(player_name)
+  def human_spot(player_name, symbol = 'O')
     spot = nil
     until spot
       Utilities.choice_msg(player_name)
@@ -22,7 +23,7 @@ class Players < Logic
       player_choice = Utilities.validate_number(choice)
       spot = player_choice
       if spot && @board[spot] != 'X' && @board[spot] != 'O'
-        @board[spot] = @hum
+        @board[spot] = symbol
         @available[spot] = ' '
       else
         spot = nil
@@ -95,6 +96,7 @@ class Players < Logic
   def reset
     @board = %w[0 1 2 3 4 5 6 7 8]
     @available = %w[0 1 2 3 4 5 6 7 8]
+    @player_names = []
   end
 end
 
