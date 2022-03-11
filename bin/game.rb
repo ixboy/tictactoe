@@ -4,7 +4,8 @@ require_relative '../lib/players'
 # rubocop:disable Metrics/PerceivedComplexity
 # rubocop:disable Metrics/MethodLength
 # rubocop:disable Style/InfiniteLoop
-
+# rubocop:disable Metrics/BlockNesting
+# rubocop:disable Metrics/AbcSize
 class Game < Players
   def print_board(b)
     a = @available
@@ -20,8 +21,15 @@ class Game < Players
   def start_game
     while true
       Utilities.clear_terminal
-      player_name = Utilities.ask_the_name('Player-1')
-      difficult = Utilities.difficulty_level
+      single_mode = Utilities.single_mode?
+      if single_mode
+        @player_names[0] = Utilities.ask_the_name('Player number 1')
+        difficult = Utilities.difficulty_level
+      else
+        (1..2).each do |i|
+          @player_names << Utilities.ask_the_name("Player number #{i}")
+        end
+      end
       sleep(2)
       Utilities.clear_terminal
       2.times { puts "\n" }
@@ -29,26 +37,34 @@ class Game < Players
       # loop through until the game was won or tied
       until game_is_over(@board) || tie(@board)
         flag = false
-        Utilities.players_msg(player_name)
+        Utilities.players_msg(@player_names[0])
         hum_move = false
-        hum_move = human_spot(player_name) until hum_move
+        hum_move = human_spot(@player_names[0]) until hum_move
+        winner = @player_names[0]
         sleep(1)
         Utilities.clear_terminal
-        Utilities.user_moves(player_name, hum_move)
+        Utilities.user_moves(@player_names[0], hum_move)
         print_board(@board)
         sleep(1)
         next unless !game_is_over(@board) && !tie(@board)
 
-        computer_default unless difficult
-        computer_hard if difficult
+        if single_mode
+          computer_default unless difficult
+          computer_hard if difficult
+          flag = true
+        else
+          Utilities.players_msg(@player_names[1], 'X')
+          hum_move = false
+          hum_move = human_spot(@player_names[1], 'X') until hum_move
+          winner = @player_names[1]
+        end
         print_board(@board)
         sleep(1)
-        flag = true
+        Utilities.user_moves(@player_names[1], hum_move) unless single_mode
       end
-      Utilities.clear_terminal
       print_board(@board)
       if game_is_over(@board)
-        flag ? Utilities.winning_msg('COMPUTER') : Utilities.winning_msg('YOU')
+        flag ? Utilities.winning_msg('COMPUTER') : Utilities.winning_msg(winner)
       else
         Utilities.its_a_tie_msg
       end
@@ -71,3 +87,5 @@ game.start_game
 # rubocop:enable Metrics/PerceivedComplexity
 # rubocop:enable Metrics/MethodLength
 # rubocop:enable Style/InfiniteLoop
+# rubocop:enable Metrics/BlockNesting
+# rubocop:enable Metrics/AbcSize

@@ -18,14 +18,13 @@ module Utilities
     if user == 'COMPUTER'
       puts "\n               I AM SORRY THE #{user} WON! TRY AGAIN!!! \n\n".red
     else
-      puts "\n               CONGRATULATIONS #{user} WON!!! \n\n".light_green
+      puts "\n               CONGRATULATIONS #{user} YOU WON THE GAME!!! \n\n".light_green
     end
   end
 
   def self.difficulty_level
     puts "\n\n             Enter 1 for the Computer to play a bit hard against you\n\n             Enter any key for Computer to play easy against you".light_yellow
     level = gets.chomp
-    # @play_mode = play_mode
     if level == '1'
       puts "\n\n             Computer player, hard mode activated!.  You can still win if you play nicer".light_red
     else
@@ -67,8 +66,8 @@ module Utilities
     player_name
   end
 
-  def self.players_msg(player)
-    puts "\n\n         #{player} your symbol is >>>'O'<<< and the Computer is >>>'X'<<<.\n                 it's your turn to play now...".light_yellow
+  def self.players_msg(player, symbol = 'O')
+    puts "\n\n            #{player} your symbol is >>>#{symbol}<<<\n             it's your turn to play now...".light_yellow
   end
 
   def self.choice_msg(player)
@@ -83,5 +82,16 @@ module Utilities
     copy = num
     num = num?(num) ? copy.to_i : 10
     num.negative? || num > 8 ? nil : num
+  end
+
+  def self.single_mode?
+    puts "\n\n             ENTER 1 TO PLAY AGAINST THE COMPUTER\n\n             ENTER ANY KEY TO PLAY AGAINST ANOTHER PLAYER ".light_yellow
+    level = gets.chomp
+    if level == '1'
+      puts "\n\n             SINGLE PLAYER ACTIVATED!... YOU WILL BE PLAYING AGAINST THE COMPUTER".light_red
+    else
+      puts "\n\n             DUAL PLAYER ACTIVATED!... YOU WILL BE PLAYING AGAINST YOUR FRIEND".green
+    end
+    level == '1'
   end
 end
